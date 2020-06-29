@@ -28,6 +28,10 @@ app.get('/track', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/track.html'))
 })
 
+app.get('/test', function(req, res) {
+    res.sendFile(path.join(__dirname, 'public/test.html'))
+})
+
 app.listen(process.env.PORT || port, function() {
     console.log("Mon serveur fonctionne sur http://" + hostname + ":" + port);
 });
