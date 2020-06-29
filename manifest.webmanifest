@@ -1,0 +1,43 @@
+{
+    "short_name": "I Love GIFs",
+    "name": "I <3 GIFs: awesome GIF browser",
+    "description": "A GIF browser that allows you to save favorite GIFs offline!",
+    "icons": [
+        {
+            "src": "/assets/images/icon-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "/assets/images/icon-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "orientation": "portrait",
+    "start_url": "/?source=pwa",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "scope": "/",
+    "theme_color": "#f44336",
+    "shortcuts": [
+        {
+            "name": "My saved GIFs",
+            "short_name": "Saved GIFs",
+            "description": "View your saved GIFs offline",
+            "url": "/saved?source=pwa"
+        },
+        {
+            "name": "Search GIFs",
+            "short_name": "Search",
+            "description": "Browse GIPHY to search awesome GIFs",
+            "url": "/search?source=pwa"
+        },
+        {
+            "name": "Tracks GIFs",
+            "short_name": "Tracks",
+            "description": "Browse GIPHY to search awesome GIFs",
+            "url": "/track?source=pwa"
+        }
+    ]
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- Include dexie.js -->
+<script src="https://npmcdn.com/dexie/dist/dexie.js"></script>
+
+<!-- Some HTML for the log window -->
+<a href="http://dexie.org/docs/API-Reference" target="_new">Dexie API Reference (new tab)</a>
+
+<h3>Log</h3>
+<textarea id="app"></textarea>
+<script src="./db.js"></script>
+
+<script>
+
+
+/*
+    const user1 = new User('user1');
+    putUser(user1);
+    const user2 = new User('user2');
+    putUser(user1);
+    const group1 = new Group('group1');
+    putGroup(group1);
+
+    putUserInGroup(user1, group1);
+    putUserInGroup(user2, group1);
+
+    console.log("usersForGroup3-[2,3]", JSON.stringify(getGroupUsers(group1))); // Should log group1  
+*/
+
+/*
+const group1 = new Group('group1');
+putGroup(group1);
+
+const group2 = new Group('group2');
+putGroup(group2);
+*
+putUserInGroup(user1, group2);
+
+console.log("usersForGroup3-[2,3]", JSON.stringify(getGroupUsers(group2))); // Should log group1  
+
+//console.log("usersForGroup1-[1]", JSON.stringify(usersForGroup1)); // Should log group1
+
+*/
+async function test() {
+    //db.delete();
+    //db.open();
+   // await Promise.all([db.users.clear(), db.groups.clear(), db.usersInGroups.clear()]);
+    /**
+    | userid | groupid |
+    | :----: | :-----: |
+    |   1    |    1    |
+    |   1    |    2    |
+    |   2    |    3    |
+    |   3    |    3    |
+     */
+    const track1 = new Track('track1', 'url');
+    await putTrack(track1);
+    const track2 = new Track('track2', 'url');
+    await putTrack(track2);
+    const track3 = new Track('track3', 'url');
+    await putTrack(track3);
+
+    const playlist1 = new Playlist('playlist1');
+    await putPlaylist(playlist1);
+    const playlist2 = new Playlist('playlist2');
+    await putPlaylist(playlist2);
+    const playlist3 = new Playlist('playlist3');
+    await putPlaylist(playlist3);
+    /**
+    | userid | groupid |
+    | :----: | :-----: |
+    |   1    |    1    |
+    |   1    |    2    |
+    |   2    |    3    |
+    |   3    |    3    |
+     */
+    await putTrackInPlaylist(track1, playlist1);
+    await putTrackInPlaylist(track2, playlist2);
+    await putTrackInPlaylist(track3, playlist3);
+
+    await putTrackInPlaylist(track1, playlist3);
+    await putTrackInPlaylist(track2, playlist3);
+
+    let usersForGroup1 = await getAllTrackInPlaylist(playlist3);
+    let usersForGroup2 = await getAllTrackInPlaylist(playlist2);
+    let usersForGroup3 = await getAllTrackInPlaylist(playlist1);
+    /**
+    | userid | groupid |
+    | :----: | :-----: |
+    |   1    |    1    |
+    |   1    |    2    |
+    |   2    |    3    |
+    |   3    |    3    |
+     */
+
+    console.log("usersForGroup1-[1]", JSON.stringify(usersForGroup1)); // Should log group1
+    console.log("usersForGroup2-[1]", JSON.stringify(usersForGroup2)); // Should log group1
+    console.log("usersForGroup3-[2,3]", JSON.stringify(usersForGroup3)); // Should log group1  
+}
+//Put a note in the tutorial about this
+/**
+putUserInGroup(user1, group1);
+putUserInGroup(user2, group1);
+ */
+//putUserInGroupC(user1, group1);
+//putUserInGroupC(user2, group1);
+test();
+let name = '';
+if (name)
+    console.log('true');
+
+</script>
+</body>
+</html>
