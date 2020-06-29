@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 
-const httpPort = 8080
+const port = 3000;
 
 const app = express()
 
@@ -27,6 +27,6 @@ app.get('/track', function(req, res) {
     res.sendFile(path.join(__dirname, 'public/track.html'))
 })
 
-app.listen(httpPort, function () {
-  console.log(`Listening on port ${httpPort}!`)
-})
+app.listen(process.env.PORT || port, function() {
+    console.log("Mon serveur fonctionne sur http://" + hostname + ":" + port);
+});
