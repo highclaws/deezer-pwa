@@ -131,51 +131,6 @@ for( var i = 0; i < songElements.length; i++ ){
 		this.querySelectorAll('.play-button-container')[0].style.display = 'none';
 	});
 }
-        /*
-    const newGifElement = document.createElement('article');
-    newGifElement.classList.add('gif-card');
-    newGifElement.id = gifItem.id;
-
-   
-
-    const imageSourceElement = document.createElement('img');
-    imageSourceElement.classList.add('lazyload');
-    imageSourceElement.dataset.src = gifItem.album.cover;
-    imageSourceElement.alt = `${gifItem.title} image`;
-
-    newGifElement.appendChild(imageSourceElement);
-
-    // Append metadata to card
-    const gifMetaContainerElement = document.createElement('div');
-    newGifElement.appendChild(gifMetaContainerElement);
-
-    // Append title to card metadata
-    const gifTitleElement = document.createElement('h3');
-    const gifTitleNode = document.createTextNode(gifItem.title || 'No title');
-    gifTitleElement.appendChild(gifTitleNode);
-    gifMetaContainerElement.appendChild(gifTitleElement);
-
-    // Append favorite button to card metadata
-    const select = document.createElement('div');
-    select.classList.add('dropdown');
-
-    const selectMore = document.createElement('a');
-    selectMore.classList.add('nav-link','dropdown-toggle');
-    selectMore.setAttribute("data-toggle","dropdown");
-
-    const divSelect = document.createElement('ul');
-    divSelect.classList.add('dropdown-menu');
-
-    const selectA = document.createElement('li');
-    selectA.classList.add('dropdown-item');
-    selectA.innerHTML = "CLICK ME";
-    divSelect.appendChild(selectA);   
-
-    select.appendChild(divSelect);   
-    select.appendChild(selectMore);   
-
-    gifMetaContainerElement.appendChild(select);
-*/
     /*
     const favButtonElement = document.createElement('button');
     favButtonElement.setAttribute('aria-label', `Save ${gifItem.title}`);
@@ -227,65 +182,48 @@ async function searchGIFs() {
 
         const gifs = giphyResponse.data;
         db.open().catch(e => console.error('Could not open database:', e));
-        const arrayMusic = []
-        gifs.forEach(async gif => {
-            const savedGifs = await db.table("tracks").get(gif.id);
-            const isSaved = typeof (savedGifs) !== 'undefined';
-            const reformatMusic = {"name": gif.title, "artist": gif.artist.name,"url":gif.preview,"cover_art_url": gif.album.cover}
-            arrayMusic.push(reformatMusic);
-            buildGIFCard(gif, isSaved);
+        const arrayMusic = [];
 
-//            const savedGifs = await db.table("tracks").where('id').equals(parseInt((gif.id)));
-
-  //          const isSaved = typeof (savedGifs) !== 'undefined';
-    //        buildGIFCard(gif, isSaved);
-        }).then( () => {
-        
-                 /*
-                Initializes AmplitudeJS
-            */
-            Amplitude.init({
-                "songs": arrayMusic
-            });
-            $('#amplitude-left').append(`
+        $('#amplitude-player').append(`
+        <div id="amplitude-left">
             <img data-amplitude-song-info="cover_art_url"/>
             <div id="player-left-bottom">
             <div id="time-container">
-              <span class="current-time">
-                  <span class="amplitude-current-minutes" ></span>:<span class="amplitude-current-seconds"></span>
-              </span>
-              <div id="progress-container">
-                  <input type="range" class="amplitude-song-slider"/>
-                  <progress id="song-played-progress" class="amplitude-song-played-progress"></progress>
-                  <progress id="song-buffered-progress" class="amplitude-buffered-progress" value="0"></progress>
-              </div>
-              <span class="duration">
-                  <span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
-              </span>
+            <span class="current-time">
+                <span class="amplitude-current-minutes" ></span>:<span class="amplitude-current-seconds"></span>
+            </span>
+            <div id="progress-container">
+                <input type="range" class="amplitude-song-slider"/>
+                <progress id="song-played-progress" class="amplitude-song-played-progress"></progress>
+                <progress id="song-buffered-progress" class="amplitude-buffered-progress" value="0"></progress>
+            </div>
+            <span class="duration">
+                <span class="amplitude-duration-minutes"></span>:<span class="amplitude-duration-seconds"></span>
+            </span>
             </div>
         
             <div id="control-container">
-              <div id="repeat-container">
-                  <div class="amplitude-repeat" id="repeat"></div>
-                  <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
-              </div>
+            <div id="repeat-container">
+                <div class="amplitude-repeat" id="repeat"></div>
+                <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle"></div>
+            </div>
         
-              <div id="central-control-container">
-                  <div id="central-controls">
-                      <div class="amplitude-prev" id="previous"></div>
-                      <div class="amplitude-play-pause" id="play-pause"></div>
-                      <div class="amplitude-next" id="next"></div>
-                  </div>
-              </div>
+            <div id="central-control-container">
+                <div id="central-controls">
+                    <div class="amplitude-prev" id="previous"></div>
+                    <div class="amplitude-play-pause" id="play-pause"></div>
+                    <div class="amplitude-next" id="next"></div>
+                </div>
+            </div>
         
-              <div id="volume-container">
-                  <div class="volume-controls">
-                      <div class="amplitude-mute amplitude-not-muted"></div>
-                      <input type="range" class="amplitude-volume-slider"/>
-                      <div class="ms-range-fix"></div>
-                  </div>
-                  <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div>
-              </div>
+            <div id="volume-container">
+                <div class="volume-controls">
+                    <div class="amplitude-mute amplitude-not-muted"></div>
+                    <input type="range" class="amplitude-volume-slider"/>
+                    <div class="ms-range-fix"></div>
+                </div>
+                <div class="amplitude-shuffle amplitude-shuffle-off" id="shuffle-right"></div>
+            </div>
             </div>
             
             <div id="meta-container">
@@ -296,8 +234,46 @@ async function searchGIFs() {
                     <span data-amplitude-song-info="album"></span>
                 </div>
             </div>
-            </div>`)   
-            checkMusic();
+            </div>
+        </div>
+        `); 
+        gifs.forEach(async gif => {
+            const savedGifs = await db.table("tracks").get(gif.id);
+            const isSaved = typeof (savedGifs) !== 'undefined';
+            const reformatMusic = {"name": gif.title, "artist": gif.artist.name,"url":gif.preview,"cover_art_url": gif.album.cover}
+            arrayMusic.push(reformatMusic);
+            buildGIFCard(gif, isSaved);
+
+            //const savedGifs = await db.table("tracks").where('id').equals(parseInt((gif.id)));
+
+            //const isSaved = typeof (savedGifs) !== 'undefined';
+            //buildGIFCard(gif, isSaved);
+        }).then(async () => {
+             
+            Amplitude.init({
+                "songs": [
+                    {
+                        "name": "Le bal masqué",
+                        "artist": "Opium du peuple",
+                        "album": "La révolte des opiumettes",
+                        "url": "./song/le-bal-masque.mp3",
+                    },
+                    {
+                        "name": "Poupée de cire, poupée de son",
+                        "artist": "Opium du peuple",
+                        "album": "La révolte des opiumettes",
+                        "url": "./song/poupee-de-cire.mp3",
+                    }
+                ],
+                callbacks: {
+                    //pour démarrer la lecture à cuaque fois que l'on passe au morceau suivant ou préc
+                    song_change: function () {
+                        Amplitude.play();
+                    }
+                }
+            });
+            
+
         });
     } catch (e) {
         // TODO: Set error screen

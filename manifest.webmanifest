@@ -1,7 +1,7 @@
 {
-    "short_name": "I Love GIFs",
-    "name": "I <3 GIFs: awesome GIF browser",
-    "description": "A GIF browser that allows you to save favorite GIFs offline!",
+    "short_name": "I Love Musics",
+    "name": "I <3 Musics: awesome track browser",
+    "description": "A Musics browser that allows you to save favorite GIFs offline!",
     "icons": [
         {
             "src": "/assets/images/icon-192x192.png",

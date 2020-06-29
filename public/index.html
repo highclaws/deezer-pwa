@@ -111,7 +111,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- Include Amplitude JS -->
+    <script type="text/javascript" src="/dist/amplitude.js"></script>
 
+    <!-- Include Style Sheet -->
 </head>
 <body id="page-top">
     <header>
@@ -125,7 +128,7 @@
                         <!-- Navigation-->
     <nav id="desktop-menu-bar">
     <ul>
-        <li>
+        <li class="active">
             <a class="trending-tabitem" href="/">
                 <i class="fas fa-fire"></i>
                 <span>Trending</span>
@@ -137,7 +140,7 @@
                 <span>Search</span>
             </a>
         </li>
-        <li class="active">
+        <li>
             <a class="saved-tabitem" href="/saved">
                 <i class="fas fa-images"></i>
                 <span>My Playlist</span>
@@ -154,17 +157,38 @@
 
     <main>
         <div class="container">
-
-                 <!-- Include dexie.js -->
-                <a href="http://dexie.org/docs/API-Reference" target="_new">Dexie API Reference (new tab)</a>
-
-                <h3>Log</h3>
-                <textarea id="app"></textarea>
+            <h3>Playlist</h3>
+            <div class="card-group card-group-scroll">
+                <div class="card">
+                    <img class="card-img-top" data-src="holder.js/100px180/" />
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="container">
+            <h3>track</h3>
+            <div class="card-group card-group-scroll">
+                <div class="card">
+                    <img class="card-img-top" data-src="holder.js/100px180/" />
+                    <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+                 <!-- Include dexie.js -->
+            
     </main>
+
     <nav id="mobile-tab-bar">
         <ul>
-            <li>
+            <li class="active">
                 <a class="trending-tabitem" href="/">
                     <i class="fas fa-fire"></i>
                     <span>Trending</span>
@@ -176,7 +200,7 @@
                     <span>Search</span>
                 </a>
             </li>
-            <li class="active">
+            <li>
                 <a class="saved-tabitem" href="/saved">
                     <i class="fas fa-images"></i>
                     <span>My GIFs</span>
@@ -201,7 +225,23 @@
     <script>
         test();
     </script>
+
+        <style>
+            body {
+        padding-top: 2rem;
+    }
     
+    @media (min-width: 576px) {
+        .card-group.card-group-scroll {
+            overflow-x: auto;
+            flex-wrap: nowrap;
+        }
+    
+        .card-group.card-group-scroll > .card {
+            flex-basis: 35%;
+        }
+    }
+        </style>
         <script>
             // TODO: 3d - Check if navigator supports Service Workers
             if ('serviceWorker' in navigator) {
